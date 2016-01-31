@@ -66,6 +66,23 @@ def get_reverse_complement(dna):
     return result
 
 
+def divide_to_trips(dna):
+    """Takes a DNA sequence and outputs a list of string triplets(codons) that makes up the sequence
+       Last element might be incomplete codon with less then three letters
+    >>> divide_to_trips("ATGTGAA")
+    ['ATG', 'TGA', 'A']
+    >>> divide_to_trips("ATGTGA")
+    ['ATG', 'TGA']
+    >>> divide_to_trips("ATGTGAAA")
+    ['ATG', 'TGA', 'AA']
+    """
+    index = 0
+    result = [] #list to be appended with codons
+    while index< len(dna):
+        result.append(dna[index:index+3])
+        index += 3
+    return result
+
 def rest_of_ORF(dna):
     """ Takes a DNA sequence that is assumed to begin with a start
         codon and returns the sequence up to but not including the
@@ -78,10 +95,28 @@ def rest_of_ORF(dna):
     'ATG'
     >>> rest_of_ORF("ATGAGATAGG")
     'ATGAGA'
+    >>> rest_of_ORF("ATG")
+    'ATG'
+    >>> rest_of_ORF("AT")
+    'AT'
+    >>> rest_of_ORF("ATGASDASDWASDWADASDSAD")
+    'ATGASDASDWASDWADASDSAD'
     """
     # TODO: implement this
-    pass
+    stop_codons = ['TAG', 'TAA', 'TGA']
+    
+    trips = divide_to_trips(dna) #lists of codons that the dna is made up of    
 
+    result = "" #Empty string to be concatenated with codon sequence to be returned
+    index = 0
+    while index + 1 < len(trips):
+        if trips[index+1] not in stop_codons: #If next codon is not one of stop codons, add the codon to result string and keep iterating
+            result += trips[index]
+            index += 1
+        else:
+            result += trips[index]
+            return result #Add this codon before stop codon and return the resulting string
+    return dna #If dna is shorter than 3 letters, it will just return dna itself.
 
 def find_all_ORFs_oneframe(dna):
     """ Finds all non-nested open reading frames in the given DNA
@@ -181,4 +216,4 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     #doctest.testmod()
-    doctest.run_docstring_examples(get_reverse_complement, globals())
+    doctest.run_docstring_examples(rest_of_ORF, globals())
