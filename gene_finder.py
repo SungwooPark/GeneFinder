@@ -101,6 +101,8 @@ def rest_of_ORF(dna):
     'AT'
     >>> rest_of_ORF("ATGASDASDWASDWADASDSAD")
     'ATGASDASDWASDWADASDSAD'
+    >>> rest_of_ORF("ATGTGTTAAATGAAAAAATAGAA")
+    'ATGTGT'
     """
     # TODO: implement this
     stop_codons = ['TAG', 'TAA', 'TGA']
@@ -130,10 +132,24 @@ def find_all_ORFs_oneframe(dna):
         returns: a list of non-nested ORFs
     >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
     ['ATGCATGAATGTAGA', 'ATGTGCCC']
+    >>> find_all_ORFs_oneframe("ATGTGAA")
+    ['ATG']
+    >>> find_all_ORFs_oneframe('ASDASDAWSDSD')
+    []
+    >>> find_all_ORFs_oneframe('TATATGCATGAATGTAGATAGATGTGCTAAATAATAATGTTTTAAATT')
+    ['ATGCATGAATGTAGA', 'ATGTGC', 'ATGTTT']
     """
     # TODO: implement this
-    pass
-
+    index = 0
+    orf_list = [] #list of orfs that will be returned at the end
+    while index < len(dna):
+        if dna[index:index+3] == 'ATG':
+            orf = rest_of_ORF(dna[index:]) #orf to be appended
+            orf_list.append(orf)
+            index += len(orf)
+        else:
+            index += 3
+    return orf_list
 
 def find_all_ORFs(dna):
     """ Finds all non-nested open reading frames in the given DNA sequence in
@@ -216,4 +232,4 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     #doctest.testmod()
-    doctest.run_docstring_examples(rest_of_ORF, globals())
+    doctest.run_docstring_examples(find_all_ORFs_oneframe, globals())
