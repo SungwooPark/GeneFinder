@@ -210,9 +210,15 @@ def longest_ORF_noncoding(dna, num_trials):
         dna: a DNA sequence
         num_trials: the number of random shuffles
         returns: the maximum length longest ORF """
-    # TODO: implement this
-    pass
-
+    i = 0
+    longest = 0
+    while i < num_trials:
+        shuffled_dna = shuffle_string(dna)
+        longest_orf_length = len(longest_ORF(shuffled_dna))
+        if longest_orf_length > longest:
+            longest = longest_orf_length
+        i += 1
+    return longest
 
 def coding_strand_to_AA(dna):
     """ Computes the Protein encoded by a sequence of DNA.  This function
@@ -244,4 +250,6 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     #doctest.testmod()
-    doctest.run_docstring_examples(longest_ORF, globals())
+    #doctest.run_docstring_examples(longest_ORF_noncoding, globals())
+    dna_seq = load_seq('data/X73525.fa')
+    print longest_ORF_noncoding(dna_seq, 3)
