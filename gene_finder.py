@@ -184,8 +184,9 @@ def find_all_ORFs_both_strands(dna):
     ['ATGCGAATG', 'ATGCTACATTCGCAT']
     """
     # TODO: implement this
-    pass
-
+    reverse_complement = get_reverse_complement(dna)
+    orf_list = find_all_ORFs(dna) + find_all_ORFs(reverse_complement)#orfs from both direction
+    return orf_list
 
 def longest_ORF(dna):
     """ Finds the longest ORF on both strands of the specified DNA and returns it
@@ -238,4 +239,4 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     #doctest.testmod()
-    doctest.run_docstring_examples(find_all_ORFs, globals())
+    doctest.run_docstring_examples(find_all_ORFs_both_strands, globals())
