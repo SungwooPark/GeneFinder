@@ -180,6 +180,7 @@ def find_all_ORFs_both_strands(dna):
 
         dna: a DNA sequence
         returns: a list of non-nested ORFs
+    Like previous function, I think this testing case tests all the functionality of this function
     >>> find_all_ORFs_both_strands("ATGCGAATGTAGCATCAAA")
     ['ATGCGAATG', 'ATGCTACATTCGCAT']
     """
@@ -194,9 +195,13 @@ def longest_ORF(dna):
     >>> longest_ORF("ATGCGAATGTAGCATCAAA")
     'ATGCTACATTCGCAT'
     """
-    # TODO: implement this
-    pass
-
+    longest_length = 0
+    orfs = find_all_ORFs_both_strands(dna)
+    for orf in orfs:
+        if len(orf) > longest_length:
+            longest_orf = orf
+            longest_length = len(orf)
+    return longest_orf
 
 def longest_ORF_noncoding(dna, num_trials):
     """ Computes the maximum length of the longest ORF over num_trials shuffles
@@ -239,4 +244,4 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     #doctest.testmod()
-    doctest.run_docstring_examples(find_all_ORFs_both_strands, globals())
+    doctest.run_docstring_examples(longest_ORF, globals())
