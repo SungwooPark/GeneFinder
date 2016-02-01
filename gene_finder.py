@@ -161,11 +161,17 @@ def find_all_ORFs(dna):
         dna: a DNA sequence
         returns: a list of non-nested ORFs
 
+    This unit testing would be enough because there isn't any special exceptions that needs to be tested. Also, this case tests this function's
+    ability to grab orf from three different possible reading frames.
     >>> find_all_ORFs("ATGCATGAATGTAG")
     ['ATGCATGAATGTAG', 'ATGAATGTAG', 'ATG']
     """
     # TODO: implement this
-    pass
+    orf_list = [] #list of orfs in all frames that will be returned at the end
+    orf_list = orf_list + find_all_ORFs_oneframe(dna) #zero offset frame
+    orf_list = orf_list + find_all_ORFs_oneframe(dna[1:]) #1 char offset frame
+    orf_list = orf_list + find_all_ORFs_oneframe(dna[2:]) #2 char offset frame
+    return orf_list
 
 
 def find_all_ORFs_both_strands(dna):
@@ -232,4 +238,4 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     #doctest.testmod()
-    doctest.run_docstring_examples(find_all_ORFs_oneframe, globals())
+    doctest.run_docstring_examples(find_all_ORFs, globals())
