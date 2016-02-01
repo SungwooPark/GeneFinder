@@ -66,14 +66,14 @@ def get_reverse_complement(dna):
     return result
 
 
-def divide_to_trips(dna):
+def divide_to_codons(dna):
     """Takes a DNA sequence and outputs a list of string triplets(codons) that makes up the sequence
        Last element might be incomplete codon with less then three letters
-    >>> divide_to_trips("ATGTGAA")
+    >>> divide_to_codons("ATGTGAA")
     ['ATG', 'TGA', 'A']
-    >>> divide_to_trips("ATGTGA")
+    >>> divide_to_codons("ATGTGA")
     ['ATG', 'TGA']
-    >>> divide_to_trips("ATGTGAAA")
+    >>> divide_to_codons("ATGTGAAA")
     ['ATG', 'TGA', 'AA']
     """
     index = 0
@@ -107,16 +107,16 @@ def rest_of_ORF(dna):
     # TODO: implement this
     stop_codons = ['TAG', 'TAA', 'TGA']
     
-    trips = divide_to_trips(dna) #lists of codons that the dna is made up of    
+    codons = divide_to_codons(dna) #lists of codons that the dna is made up of    
 
     result = "" #Empty string to be concatenated with codon sequence to be returned
     index = 0
-    while index + 1 < len(trips):
-        if trips[index+1] not in stop_codons: #If next codon is not one of stop codons, add the codon to result string and keep iterating
-            result += trips[index]
+    while index + 1 < len(codons):
+        if codons[index+1] not in stop_codons: #If next codon is not one of stop codons, add the codon to result string and keep iterating
+            result += codons[index]
             index += 1
         else:
-            result += trips[index]
+            result += codons[index]
             return result #Add this codon before stop codon and return the resulting string
     return dna #If dna is shorter than 3 letters, it will just return dna itself.
 
@@ -250,6 +250,6 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     #doctest.testmod()
-    #doctest.run_docstring_examples(longest_ORF_noncoding, globals())
-    dna_seq = load_seq('data/X73525.fa')
-    print longest_ORF_noncoding(dna_seq, 3)
+    doctest.run_docstring_examples(rest_of_ORF, globals())
+    #dna_seq = load_seq('data/X73525.fa')
+    #print longest_ORF_noncoding(dna_seq, 3)
