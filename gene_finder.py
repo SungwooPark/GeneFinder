@@ -233,10 +233,15 @@ def coding_strand_to_AA(dna):
         'MR'
         >>> coding_strand_to_AA("ATGCCCGCTTT")
         'MPA'
+        >>> coding_strand_to_AA("TTTATCATGTTAGTTA")
+        'FIMLV'
     """
-    # TODO: implement this
-    pass
-
+    codons = divide_to_codons(dna)
+    amino_acid = ''
+    for codon in codons:
+        if len(codon) == 3:
+            amino_acid += aa_table[codon]
+    return amino_acid
 
 def gene_finder(dna):
     """ Returns the amino acid sequences that are likely coded by the specified dna
@@ -250,6 +255,6 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     #doctest.testmod()
-    doctest.run_docstring_examples(rest_of_ORF, globals())
+    doctest.run_docstring_examples(coding_strand_to_AA, globals())
     #dna_seq = load_seq('data/X73525.fa')
     #print longest_ORF_noncoding(dna_seq, 3)
