@@ -15,8 +15,6 @@ def shuffle_string(s):
         have to modify this in any way """
     return ''.join(random.sample(s, len(s)))
 
-# YOU WILL START YOUR IMPLEMENTATION FROM HERE DOWN ###
-
 
 def get_complement(nucleotide):
     """ Returns the complementary nucleotide
@@ -102,7 +100,6 @@ def rest_of_ORF(dna):
     >>> rest_of_ORF("ATGTGTTAAATGAAAAAATAGAA")
     'ATGTGT'
     """
-    # TODO: implement this
     stop_codons = ['TAG', 'TAA', 'TGA']
     
     codons = divide_to_codons(dna) #lists of codons that the dna is made up of    
@@ -137,7 +134,6 @@ def find_all_ORFs_oneframe(dna):
     >>> find_all_ORFs_oneframe('TATATGCATGAATGTAGATAGATGTGCTAAATAATAATGTTTTAAATT')
     ['ATGCATGAATGTAGA', 'ATGTGC', 'ATGTTT']
     """
-    # TODO: implement this
     index = 0
     orf_list = [] #list of orfs that will be returned at the end
     while index < len(dna):
@@ -164,7 +160,6 @@ def find_all_ORFs(dna):
     >>> find_all_ORFs("ATGCATGAATGTAG")
     ['ATGCATGAATGTAG', 'ATGAATGTAG', 'ATG']
     """
-    # TODO: implement this
     orf_list = [] #list of orfs in all frames that will be returned at the end
     orf_list = orf_list + find_all_ORFs_oneframe(dna) #zero offset frame
     orf_list = orf_list + find_all_ORFs_oneframe(dna[1:]) #1 char offset frame
@@ -182,7 +177,6 @@ def find_all_ORFs_both_strands(dna):
     >>> find_all_ORFs_both_strands("ATGCGAATGTAGCATCAAA")
     ['ATGCGAATG', 'ATGCTACATTCGCAT']
     """
-    # TODO: implement this
     reverse_complement = get_reverse_complement(dna)
     orf_list = find_all_ORFs(dna) + find_all_ORFs(reverse_complement)#orfs from both direction
     return orf_list
