@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-YOUR HEADER COMMENT HERE
-
-@author: YOUR NAME HERE
+@author: Sungwoo Park
 
 """
 
@@ -250,7 +248,7 @@ def gene_finder(dna):
         returns: a list of all amino acid sequences coded by the sequence dna.
     """
     threshold = longest_ORF_noncoding(dna, 1500)
-    all_orfs = find_all_ORFs_oneframe(dna)
+    all_orfs = find_all_ORFs_both_strands(dna)
     amino_acids = []
     for orf in all_orfs:
         if len(orf) > threshold:
@@ -260,6 +258,6 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
-    doctest.run_docstring_examples(coding_strand_to_AA, globals())
+    #doctest.run_docstring_examples(coding_strand_to_AA, globals())
     dna_seq = load_seq('data/X73525.fa')
     print gene_finder(dna_seq)
