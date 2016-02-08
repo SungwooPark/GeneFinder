@@ -1,2 +1,2 @@
 # GeneFinder
-This is the base repository for the gene-finder mini project.
+This is a python program that detects a protein-coding genes from arbitrary DNA sequences through a medhod called ab initio gene finding. This particular program finds genes from DNA of bacterium *Salmonella Enterica*. The output of this program, a DNA sequence that is suspected to be related to Salmonella's role in the pathogenesis, is then compared to the result from the genetic search engine protein-BLAST.
